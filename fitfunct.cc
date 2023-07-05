@@ -31,10 +31,19 @@ void fitfunct()
     hist->GetXaxis()->SetTitle("Distribution");
     hist->GetYaxis()->SetTitle("Entries");
    
-    TF1 *fit = new TF1("fit", "gaus", 4, 6);// name, type of fit, range
+    TF1 *fit = new TF1("fit", "gaus", 0, 10);// name, type of fit, range
+    
+    fit->SetParameter(0, 40);
+    fit->SetParameter(1, 5);
+    fit->SetParameter(2, 1);
     
     TCanvas *c1 = new TCanvas(); //window the hist is drawn
     hist->Draw();
     hist->Fit("fit", "R"); //fits whatever type of fit I have defined, "R" adopts the range of the fit
  //   hist->Fit("gaus"); //draws fit of gaus
+ 
+    double mean = fit->GetParameter(1);
+    double sigma = fit->GetParameter(2);
+    
+    cout << mean/sigma << endl;
   }
